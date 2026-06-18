@@ -726,3 +726,13 @@ body.ride-page .glow-orb {
     }
 }
 }
+#rideInfo {
+    position: fixed !important;
+    top: 120px !important;
+    right: 40px !important;
+    width: 400px !important;
+    background: red !important;
+    color: white !important;
+    padding: 20px !important;
+    z-index: 99999 !important;
+}
