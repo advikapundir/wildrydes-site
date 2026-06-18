@@ -703,13 +703,13 @@ body.ride-page .glow-orb {
     .ride-card__subtitle { display: none; }
     .floating-result {
     position: fixed;
-    right: 2rem;
-    bottom: 2rem;
 
-    width: 340px;
-    max-width: 90vw;
+    top: 120px;
+    right: 40px;
 
-    z-index: 50;
+    width: 400px;
+
+    z-index: 9999;
 
     animation: slideUp .4s ease;
 }
