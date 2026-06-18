@@ -7,14 +7,16 @@
 <body>
 
 <h1>Sign In</h1>
+<form id="signinForm">
+    <input type="email" id="email" placeholder="Email"><br><br>
 
-<form>
-    <input type="email" placeholder="Email"><br><br>
-
-    <input type="password" placeholder="Password"><br><br>
+    <input type="password" id="password" placeholder="Password"><br><br>
 
     <button type="submit">Login</button>
 </form>
 
+<script src="https://unpkg.com/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/signin.js"></script>
 </body>
 </html>
