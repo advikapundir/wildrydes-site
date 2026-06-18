@@ -6,6 +6,7 @@ document.getElementById('rideButton').addEventListener('click', async () => {
         alert('Please login first');
         return;
     }
+    drawRoute();
 
     const response = await fetch(
         window._config.api.invokeUrl + '/ride',
@@ -25,7 +26,36 @@ document.getElementById('rideButton').addEventListener('click', async () => {
     );
 
     const data = await response.json();
+document.getElementById('rideInfo').innerHTML = `
+<div class="confirmation-card">
 
-    document.getElementById('result').innerHTML =
-        '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+    <div class="confirmation-header">
+        <div class="unicorn-badge">🦄</div>
+        <h3>Unicorn Assigned</h3>
+        <p>Your magical ride is on its way</p>
+    </div>
+
+   <div class="ride-detail">
+    <span class="ride-label">Ride ID</span>
+    <span class="ride-value ride-id">${data.RideId}</span>
+</div>
+
+<div class="ride-detail">
+    <span class="ride-label">Rider</span>
+    <span class="ride-value rider-email">${data.Rider}</span>
+</div>
+
+    <div class="ride-detail">
+        <span class="ride-label">Color</span>
+        <span class="ride-value">${data.Unicorn.Color}</span>
+    </div>
+
+    <div class="ride-detail">
+        <span class="ride-label">ETA</span>
+        <span class="ride-value">${data.Eta}</span>
+    </div>
+
+
+</div>
+`;
 });

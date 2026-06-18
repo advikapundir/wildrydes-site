@@ -1,22 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sign In</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In – Wild Rydes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<h1>Sign In</h1>
-<form id="signinForm">
-    <input type="email" id="email" placeholder="Email"><br><br>
+    <canvas id="stars"></canvas>
 
-    <input type="password" id="password" placeholder="Password"><br><br>
+    <div class="glow-orb glow-orb--1"></div>
+    <div class="glow-orb glow-orb--2"></div>
 
-    <button type="submit">Login</button>
-</form>
+    <div class="auth-wrapper">
 
-<script src="https://unpkg.com/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>
-<script src="js/config.js"></script>
-<script src="js/signin.js"></script>
+        <a href="index.html" class="back-link">← Wild Rydes</a>
+
+        <div class="auth-card">
+            <div class="auth-card__icon" aria-hidden="true">🦄</div>
+            <h1 class="auth-card__title">Welcome Back</h1>
+            <p class="auth-card__subtitle">Your unicorn is saddled up and ready.</p>
+
+            <form id="signinForm" class="auth-form" novalidate>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Your password" autocomplete="current-password" required>
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--full">Sign In</button>
+
+            </form>
+
+            <p class="auth-card__footer">
+                Don't have an account? <a href="register.html">Create one</a>
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        const canvas = document.getElementById('stars');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        function initStars() {
+            stars = Array.from({ length: 160 }, () => ({
+                x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                r: Math.random() * 1.4 + 0.2, alpha: Math.random(), speed: Math.random() * 0.004 + 0.001
+            }));
+        }
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(s => {
+                s.alpha += s.speed;
+                if (s.alpha > 1 || s.alpha < 0) s.speed *= -1;
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(200, 180, 255, ${s.alpha})`; ctx.fill();
+            });
+            requestAnimationFrame(drawStars);
+        }
+        resize(); initStars(); drawStars();
+        window.addEventListener('resize', () => { resize(); initStars(); });
+    </script>
+
+    <script src="https://unpkg.com/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/signin.js"></script>
+
 </body>
 </html>

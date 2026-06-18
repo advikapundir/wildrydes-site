@@ -1,21 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Request a Unicorn Ride</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Ride – Wild Rydes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-<h1>Request a Unicorn Ride</h1>
+<body class="ride-page">
 
-<button id="rideButton">
-    Request Ride
-</button>
+    <!-- Starfield always on top of bg, below UI -->
+    <canvas id="stars"></canvas>
+    <div class="glow-orb glow-orb--1"></div>
+    <div class="glow-orb glow-orb--2"></div>
 
-<br><br>
+    <!-- Nav -->
+    <header class="ride-nav">
+        <a href="index.html" class="logo-link">
+            <span class="logo-mark">🦄</span>
+            <span class="logo-text">Wild Rydes</span>
+        </a>
+        <span class="ride-nav__tagline">Pick your spot. We'll send a unicorn.</span>
+    </header>
 
-<div id="result"></div>
+    <!-- Map fills full screen -->
+    <div id="map" class="ride-map"></div>
 
-<script src="js/config.js"></script>
-<script src="js/ride.js"></script>
+    <!-- Centered overlay card -->
+    <div class="ride-overlay">
+       <div class="ride-card">
+    <div class="ride-card__icon">🦄</div>
+
+    <h1 class="ride-card__title">
+        Request a<br><em>Unicorn Ride</em>
+    </h1>
+
+    <p class="ride-card__subtitle">
+        Choose your pickup and destination.
+    </p>
+
+    <input
+        id="pickup"
+        class="ride-input"
+        placeholder="📍 Pickup Location">
+
+    <input
+        id="destination"
+        class="ride-input"
+        placeholder="🏁 Destination">
+
+    <button id="rideButton" class="btn btn--primary btn--full">
+        ✨ Request Ride
+    </button>
+
+    <div id="result" class="ride-result"></div>
+</div>
+    </div>
+
+    <script>
+        // Starfield
+        const canvas = document.getElementById('stars');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        function initStars() {
+            stars = Array.from({ length: 180 }, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.4 + 0.2,
+                alpha: Math.random(),
+                speed: Math.random() * 0.004 + 0.001
+            }));
+        }
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(s => {
+                s.alpha += s.speed;
+                if (s.alpha > 1 || s.alpha < 0) s.speed *= -1;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(200, 180, 255, ${s.alpha})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(drawStars);
+        }
+        resize(); initStars(); drawStars();
+        window.addEventListener('resize', () => { resize(); initStars(); });
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7mTZ4LrcgM15KUx0sgHYBmk_kcMYWBXc&libraries=places"></script>
+     <script src="js/map.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/ride.js"></script>
+    <div id="rideInfo" class="floating-result"></div>
 </body>
 </html>

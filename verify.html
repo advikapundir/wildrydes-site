@@ -1,22 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Verify Account</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Account – Wild Rydes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<h1>Verify Email</h1>
+    <canvas id="stars"></canvas>
 
-<form id="verifyForm">
-    <input type="email" id="email" placeholder="Email"><br><br>
+    <div class="glow-orb glow-orb--1"></div>
+    <div class="glow-orb glow-orb--2"></div>
 
-    <input type="text" id="code" placeholder="Verification Code"><br><br>
+    <div class="auth-wrapper">
 
-    <button type="submit">Verify</button>
-</form>
-<script src="https://unpkg.com/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>
-<script src="js/config.js"></script>
-<script src="js/verify.js"></script>
+        <a href="index.html" class="back-link">← Wild Rydes</a>
+
+        <div class="auth-card">
+            <div class="auth-card__icon" aria-hidden="true">📬</div>
+            <h1 class="auth-card__title">Check Your Email</h1>
+            <p class="auth-card__subtitle">We sent a verification code to your inbox. Enter it below to activate your account.</p>
+
+            <form id="verifyForm" class="auth-form" novalidate>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="code">Verification Code</label>
+                    <input type="text" id="code" placeholder="Enter 6-digit code" autocomplete="one-time-code" maxlength="6" required>
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--full">Verify Account</button>
+
+            </form>
+
+            <p class="auth-card__footer">
+                Already verified? <a href="signin.html">Sign in</a>
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        const canvas = document.getElementById('stars');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        function initStars() {
+            stars = Array.from({ length: 160 }, () => ({
+                x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                r: Math.random() * 1.4 + 0.2, alpha: Math.random(), speed: Math.random() * 0.004 + 0.001
+            }));
+        }
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(s => {
+                s.alpha += s.speed;
+                if (s.alpha > 1 || s.alpha < 0) s.speed *= -1;
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(200, 180, 255, ${s.alpha})`; ctx.fill();
+            });
+            requestAnimationFrame(drawStars);
+        }
+        resize(); initStars(); drawStars();
+        window.addEventListener('resize', () => { resize(); initStars(); });
+    </script>
+
+    <script src="https://unpkg.com/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/verify.js"></script>
+
 </body>
 </html>
