@@ -2,6 +2,7 @@ console.log("register.js loaded");
 const form = document.getElementById('registerForm');
 
 form.addEventListener('submit', function (e) {
+    console.log("submit clicked");
     e.preventDefault();
 
     const email = document.getElementById('email').value;
