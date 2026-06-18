@@ -7,14 +7,15 @@
 <body>
 
 <h1>Create Account</h1>
+<form id="registerForm">
+    <input type="email" id="email" placeholder="Email"><br><br>
 
-<form>
-    <input type="email" placeholder="Email"><br><br>
-
-    <input type="password" placeholder="Password"><br><br>
+    <input type="password" id="password" placeholder="Password"><br><br>
 
     <button type="submit">Register</button>
 </form>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/amazon-cognito-identity-js/6.3.6/amazon-cognito-identity.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/register.js"></script>
 </body>
 </html>
