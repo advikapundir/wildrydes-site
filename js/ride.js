@@ -26,6 +26,7 @@ document.getElementById('rideButton').addEventListener('click', async () => {
     );
 
     const data = await response.json();
+    console.log("Ride data:", data);
 document.getElementById('rideInfo').innerHTML = `
 <div class="confirmation-card">
 
