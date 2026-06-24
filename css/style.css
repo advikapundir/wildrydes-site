@@ -739,3 +739,30 @@ body.ride-page .glow-orb {
     box-shadow:
         0 0 15px rgba(244,114,182,.15);
 }
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logout-btn {
+    background: rgba(255,255,255,0.08);
+    color: white;
+
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 999px;
+
+    padding: 0.55rem 1rem;
+
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    transition: all 0.25s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(244,114,182,0.15);
+    border-color: var(--pink);
+    color: var(--pink);
+}

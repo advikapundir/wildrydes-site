@@ -65,3 +65,9 @@ document.getElementById('rideInfo').innerHTML = `
 </div>
 `;
 });
+document.getElementById('logoutBtn').addEventListener('click', () => {
+
+    localStorage.removeItem('idToken');
+
+    window.location.href = 'signin.html';
+});
