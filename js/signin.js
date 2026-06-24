@@ -34,7 +34,6 @@ document.getElementById('signinForm').addEventListener('submit', function(e) {
 
             localStorage.setItem('idToken', idToken);
 
-            alert('Login successful!');
 
             window.location.href = 'ride.html';
         },
