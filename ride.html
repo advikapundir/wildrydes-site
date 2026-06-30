@@ -100,7 +100,11 @@
         resize(); initStars(); drawStars();
         window.addEventListener('resize', () => { resize(); initStars(); });
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7mTZ4LrcgM15KUx0sgHYBmk_kcMYWBXc&libraries=places"></script>
+    <script
+    async
+    defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7mTZ4LrcgM15KUx0sgHYBmk_kcMYWBXc&libraries=places&callback=initMap">
+</script>
      <script src="js/map.js"></script>
     <script src="js/config.js"></script>
     <script src="js/ride.js"></script>
